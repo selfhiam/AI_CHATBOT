@@ -1,0 +1,61 @@
+.pic {
+    width: 90%;
+    height: max-content;
+    margin: auto;
+    display: flex;
+    position: relative;
+}
+
+.char {
+    width: 50%;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.pic div {
+    margin: 0 auto;
+}
+.firework { 
+    width: 100%;
+}
+
+.firework img {
+    width: 100%;
+}
+
+.char img {
+    width: 100%;
+    /* left: -50%; */
+}
+
+.container {
+    margin: 2rem 0;
+}
+
+.ment {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    background-color: #FFF3CA;
+    border-radius: 0.75rem;
+}
+
+.ment p {
+    margin: 0;
+}
+
+.subment {
+    font-family: 'Pretendard-Regular';
+    font-size: 0.9rem;
+    text-align: center;
+    color: #999999;
+    margin: 1.5rem;
+}
+
+.button {
+    color: white;
+    background-color: #443400;
+}
