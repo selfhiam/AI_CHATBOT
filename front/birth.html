@@ -21,7 +21,6 @@
                 <img src="./logo/firework.gif" alt="firework">
             </div>
             <div class="char">
-                <img src="./logo/1.png" alt="character">
             </div>
         </div>
         <div class="ment">
@@ -37,6 +36,10 @@
     </button></a>
 </body>
 <script>
+    const randomNum = Math.floor(Math.random() * 3 + 1);
+    const char = document.querySelector(".char");
+    char.innerHTML = `<img src="./logo/${randomNum}.png" alt="character">`
+    localStorage.setItem('char', randomNum);
     const name = localStorage.getItem('name');
     let changes = document.querySelectorAll('.name');
     changes[0].innerText = name

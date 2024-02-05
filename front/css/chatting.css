@@ -91,6 +91,7 @@ footer button {
 
 .yourtext {
     width: 100%;
+    display: flex;
 }
 
 .yourtext div{

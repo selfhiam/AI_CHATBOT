@@ -1,16 +1,17 @@
-const name = localStorage.getItem('name');
+    const cname = localStorage.getItem('name');
     let changes = document.querySelector('.name');
-    changes.innerText = name
+    changes.innerText = cname;
+
+    const char = localStorage.getItem('char');
 
     const DEFAULT_HEIGHT = 5; // textarea 기본 height
     const text = document.getElementById('textarea')
     const btn = document.getElementById('btn')
     const container = document.querySelector('.container');
 
-
     text.oninput = (event) => {
         const $target = event.target;
-        if (text.value.length > 0) {
+        if (text.value.length > 0 && !talking) {
             btn.classList.add('yellow')
         }
         $target.style.height = 0;
@@ -56,12 +57,12 @@ const name = localStorage.getItem('name');
 
             container.innerHTML += `<span class="text">
             <div class="character">
-                <img src="../logo/1.png" alt="">
+                <img src="../logo/${char}.png" alt="">
             </div>
             <div class="yourtext">
                 <div>${value}</div>
+                <span class="time">${timeString}</span>
             </div>
-            <span class="time">${timeString}</span>
         </span>`;
             window.scrollTo(0, document.body.scrollHeight);
         }, 1000)

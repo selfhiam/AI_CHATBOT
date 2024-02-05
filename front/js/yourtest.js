@@ -35,12 +35,14 @@ function initialization(data) {
 /// 해당 값으로 
 function nextQuestion(i, ans) {
     num = num + i;
-
     if(num < 0){
         window.location.href = './index.html'
     }
     else if(num > 9){
-        localStorage.setItem("score", score)
+        labeldata = JSON.parse(alldata[num - 1]);
+        label = labeldata['label'];
+        score[label[ans]] += 1;
+        localStorage.setItem("score", score);
         window.location.href = './naming.html'
     }
     else {
@@ -50,7 +52,10 @@ function nextQuestion(i, ans) {
         quest.innerText = getdata['Q']
         ans1.innerText = getdata['A1']
         ans2.innerText = getdata['A2']
-        label = getdata['label']
+
+        labeldata = JSON.parse(alldata[num - 1])
+        label = labeldata['label']
+
         score[label[ans]] += 1;
     }
 } 
