@@ -74,3 +74,19 @@ header p {
     color: #443400;
     border: none;
 }
+
+@media screen and (max-width:312px) {
+    html, body{font-size: 95%;}
+}
+@media screen and (min-width:312px) and (max-width:420px){
+    html, body{font-size: 100%;}
+}
+@media screen and (min-width:420px) and (max-width:512px){
+    html, body{font-size: 100%;}
+}
+@media screen and (min-width:512px) and (max-width:768px){
+    html, body{font-size: 120%;}
+} 
+@media screen and (min-width:768px){
+    html, body{font-size: 150%;}
+} 
