@@ -31,18 +31,21 @@
             학교에 다녀온 <span class="name">엄쪽이</span>(이)와<br>대화를 나눠보세요!
         </div>
     </div>
-    <a href="./chatting.html"><button class="button">
+    <button class="button" type="button" onclick="select()">
         챗쪽이 만나러 가기
-    </button></a>
+    </button>
+    <div class="layer">
+        <div class="popup">
+            <i class="xi-close-min"></i>
+            <ul>
+                <label>
+                <input type="radio" name="parents" value="1">엄마</label>
+                <label>
+                <input type="radio" name="parents" value="2">아빠</label>                
+            </ul>
+            <div class="enter" onclick="enter()">입장하기</div>
+        </div>
+    </div>
 </body>
-<script>
-    const randomNum = Math.floor(Math.random() * 3 + 1);
-    const char = document.querySelector(".char");
-    char.innerHTML = `<img src="./logo/${randomNum}.png" alt="character">`
-    localStorage.setItem('char', randomNum);
-    const name = localStorage.getItem('name');
-    let changes = document.querySelectorAll('.name');
-    changes[0].innerText = name
-    changes[1].innerText = name
-</script>
+<script src="./js/birth.js"></script>
 </html>

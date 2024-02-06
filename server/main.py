@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import questions
+import json
 
 app = FastAPI()
 
@@ -53,7 +54,7 @@ def main_page(request: Request):
 def main_page(request: Request):
 	return templates.TemplateResponse('birth.html', context={'request':request})
 
-@app.get('/chatting.html', response_class=HTMLResponse)
+@app.get('/chatting.html', response_class=HTMLResponse,)
 def main_page(request: Request):
 	return templates.TemplateResponse('chatting.html', context={'request':request})
 
@@ -62,3 +63,9 @@ def main_page(request: Request):
 async def getFromDB(request: Request):
 	list = questions.mongoDB()
 	return list
+
+@app.post('/chatting.html', response_class=JSONResponse)
+async def main_page(request: Request):
+    data = await request.json()  # JSON 형식의 데이터 추출
+    print(data['parents'])
+    return {"message": "Received data successfully"}
