@@ -114,14 +114,14 @@ def Parents(parents):
 ans = '저한테 말씀을 해주세요.'
 
 def getAnswer(question):
-    pattern = r"^[ㄱ-ㅎㅏ-ㅣ가-힣]*$"
-    p = re.compile(pattern)
+    # pattern = r"^[ㄱ-ㅎㅏ-ㅣ가-힣]*$"
+    # p = re.compile(pattern)
     with torch.no_grad():
         t = question.strip()
         if len(t) < 1:
             return ans
-        elif not (p.match(question)):
-            return ans
+        # elif not (p.match(question)):
+        #     return ans
         l = t[0]
         q = t[1:]
         a = ""
