@@ -63,28 +63,39 @@ async function submit() {
 
 function model(value) {
     return new Promise(resolve => {
-        setTimeout(() => {
-            let today = new Date();
-            let hours = ('0' + today.getHours()).slice(-2);
-            let minutes = ('0' + today.getMinutes()).slice(-2);
-            let timeString = hours + ':' + minutes;
+        fetch('http://127.0.0.1:8000/chatting.html', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'question': value
+            })
+        })
+            .then((res) => res.json())
+            .then((jsondata) => {
+                console.log(jsondata)
 
-            container.innerHTML += `<span class="text">
-                    <div class="character">
-                        <img src="../logo/${char}.png" alt="">
-                    </div>
-                    <div class="yourtext">
-                        <div>${value}</div>
-                        <span class="time">${timeString}</span>
-                    </div>
-                </span>`;
-            window.scrollTo(0, document.body.scrollHeight);
+                let today = new Date();
+                let hours = ('0' + today.getHours()).slice(-2);
+                let minutes = ('0' + today.getMinutes()).slice(-2);
+                let timeString = hours + ':' + minutes;
 
-            // Promise를 통해 완료를 알림
-            resolve();
-        }, 1000);
-        console.log('model 함수 끝');
-    });
+                container.innerHTML += `<span class="text">
+                            <div class="character">
+                                <img src="../logo/${char}.png" alt="">
+                            </div>
+                            <div class="yourtext">
+                                <div>${jsondata['message']}</div>
+                                <span class="time">${timeString}</span>
+                            </div>
+                        </span>`;
+                window.scrollTo(0, document.body.scrollHeight);
+
+                // Promise를 통해 완료를 알림
+                resolve();
+            });
+    })
 }
 
 $('textarea').on('keydown', function (event) {

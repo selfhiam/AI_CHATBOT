@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import questions
 import json
+import model
 
 app = FastAPI()
 
@@ -64,8 +65,15 @@ async def getFromDB(request: Request):
 	list = questions.mongoDB()
 	return list
 
-@app.post('/chatting.html', response_class=JSONResponse)
-async def main_page(request: Request):
+@app.post('/birth.html', response_class=JSONResponse)
+async def getParents(request: Request):
     data = await request.json()  # JSON 형식의 데이터 추출
     print(data['parents'])
+    model.Parents(data['parents'])
     return {"message": "Received data successfully"}
+
+@app.post('/chatting.html', response_class=JSONResponse)
+async def runModel(request: Request):
+    data = await request.json()  # JSON 형식의 데이터 추출
+    message = model.getAnswer(data['question'])
+    return {"message": message}

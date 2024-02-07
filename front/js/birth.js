@@ -24,7 +24,7 @@ function enter() {
     const parents = document.getElementsByName('parents')
     const selected = Array.from(parents).find(radio => radio.checked);
     console.log(selected.value)
-    fetch('http://127.0.0.1:8000/chatting.html', {
+    fetch('http://127.0.0.1:8000/birth.html', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -32,5 +32,8 @@ function enter() {
         body: JSON.stringify({
             'parents': selected.value
         })
+    })
+    .then(() =>{
+        window.location.href = "./chatting.html";
     })
 }
