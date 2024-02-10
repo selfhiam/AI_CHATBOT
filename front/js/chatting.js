@@ -13,17 +13,26 @@ testResult = JSON.parse(testResult)
 console.log(testResult)
 //고집0/우유1/급함2/여유3/긍정4/불안5/이성6/감성7/외향8/내향9
 emoList = []
-for(let i = 0; i < 10; i++){
-    if (testResult[i] > 2){
-        emoList.push(i)
+for (let i = 0; i < 10; i = i + 2) {
+    if (testResult[i] > testResult[i+1]) {
+        emoList.push(i);
+    }
+    else if (testResult[i] < testResult[i+1]){
+        emoList.push(i+1);
     }
 }
 console.log(emoList)
 
-function choosing(emoList){
+function choosing(emoList) {
     let choose;
-    num = Math.floor((Math.random() * emoList.length));
-    choose = emoList[num]
+    if(emoList.length == 0){
+        num = Math.floor((Math.random() * 10));
+        choose = num;
+    }
+    else{
+        num = Math.floor((Math.random() * emoList.length));
+        choose = emoList[num];
+    }
     return choose;
 }
 
@@ -70,8 +79,11 @@ async function submit() {
         window.scrollTo(0, document.body.scrollHeight);
 
         choose = choosing(emoList)
-
+        const regex = new RegExp(`${cname}`, 'g');
+        console.log(regex); // /JS/g
+        context = context.replace(regex, "챗쪽")
         // model 함수 호출 (Promise 사용)
+        console.log(context);
         await model(choose + context);
 
         // model 함수가 완료된 후에 실행될 코드
