@@ -1,8 +1,10 @@
 from pymongo import MongoClient
 from random import sample
+import certifi
 import json
 def mongoDB():
-    client = MongoClient("mongodb+srv://jimini0920:JW4qxzzylk41IZe1@cluster0.kngcohp.mongodb.net/?retryWrites=true&w=majority")
+    tlsCAFile=certifi.where()
+    client = MongoClient("mongodb+srv://jimini0920:JW4qxzzylk41IZe1@cluster0.kngcohp.mongodb.net/?retryWrites=true&w=majority",tlsCAFile=certifi.where())
 
     db = client["chat"]
     collection = db["test"]

@@ -76,4 +76,5 @@ async def getParents(request: Request):
 async def runModel(request: Request):
     data = await request.json()  # JSON 형식의 데이터 추출
     message = model.getAnswer(data['question'])
+    print(data['question'])
     return {"message": message}

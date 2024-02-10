@@ -13,12 +13,12 @@ fetch('http://127.0.0.1:8000/mytest.html', {
 let num = 0;
 let alldata;
 let score = localStorage.getItem("score");
-
+score = JSON.parse(score);
 quest = document.querySelector('.question');
 ans1 = document.querySelector('#ans1');
 ans2 = document.querySelector('#ans2');
 numbering = document.querySelector('.change');
-
+console.log(score)
 /// 받은 값을 전역변수에 저장
 function initialization(data) {
     alldata = data
@@ -31,7 +31,7 @@ function initialization(data) {
     ans2.innerText = firstdata['A2']
 }
 
-//고집0/우유1/급함2/여유3/불안4/긍정5/이성6/감성7/외향8/내향9
+//고집0/우유1/급함2/여유3/긍정4/불안5/이성6/감성7/외향8/내향9
 /// 해당 값으로 
 function nextQuestion(i, ans) {
     num = num + i;
@@ -42,7 +42,7 @@ function nextQuestion(i, ans) {
         labeldata = JSON.parse(alldata[num - 1]);
         label = labeldata['label'];
         score[label[ans]] += 1;
-        localStorage.setItem("score", score);
+        localStorage.setItem("score", JSON.stringify(score))
         window.location.href = './naming.html'
     }
     else {

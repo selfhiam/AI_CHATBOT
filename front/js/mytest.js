@@ -7,6 +7,7 @@ fetch('http://127.0.0.1:8000/mytest.html', {
 })
 .then(res => res.json())
 .then((data) => {
+    console.log(data)
     initialization(data)
 })
 
@@ -29,7 +30,7 @@ numbering = document.querySelector('.change');
 /// 받은 값을 전역변수에 저장
 function initialization(data) {
     alldata = data
-
+    console.log(alldata);
     firstdata = JSON.parse(alldata[num])
 
     numbering.innerText = num + 1
@@ -50,8 +51,7 @@ function nextQuestion(i, ans) {
         labeldata = JSON.parse(alldata[num - 1])
         label = labeldata['label']    
         score[label[ans]] += 1;
-
-        localStorage.setItem("score", score)
+        localStorage.setItem("score", JSON.stringify(score))
         window.location.href = './middletest.html'
     }
     else {

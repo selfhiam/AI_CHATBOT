@@ -8,6 +8,24 @@ const DEFAULT_HEIGHT = 5; // textarea 기본 height
 const text = document.getElementById('textarea')
 const btn = document.getElementById('btn')
 const container = document.querySelector('.container');
+let testResult = localStorage.getItem("score");
+testResult = JSON.parse(testResult)
+console.log(testResult)
+//고집0/우유1/급함2/여유3/긍정4/불안5/이성6/감성7/외향8/내향9
+emoList = []
+for(let i = 0; i < 10; i++){
+    if (testResult[i] > 2){
+        emoList.push(i)
+    }
+}
+console.log(emoList)
+
+function choosing(emoList){
+    let choose;
+    num = Math.floor((Math.random() * emoList.length));
+    choose = emoList[num]
+    return choose;
+}
 
 let isModelRunning = false;
 
@@ -51,8 +69,10 @@ async function submit() {
         btn.classList.remove('yellow');
         window.scrollTo(0, document.body.scrollHeight);
 
+        choose = choosing(emoList)
+
         // model 함수 호출 (Promise 사용)
-        await model(context);
+        await model(choose + context);
 
         // model 함수가 완료된 후에 실행될 코드
         console.log("model 함수 호출 완료");
