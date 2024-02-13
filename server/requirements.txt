@@ -1,7 +1,6 @@
 fastapi
 certifi
-uvicorn[standard]==0.13.4
-websockets==9.0.1
+uvicorn
 transformers
 pymongo
 pandas
