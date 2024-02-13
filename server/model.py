@@ -24,7 +24,7 @@ koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             pad_token=PAD, mask_token=MASK)
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 # 저장된 모델 상태를 불러오기
-checkpoint = torch.load('C:/Users/엄지민/Desktop/chatbot/server/GPT2_skt-v2-cuda-18.pth', map_location=torch.device('cpu'))
+checkpoint = torch.load('C:\Users\엄지민\Desktop\chatbot\server\chatjjock.pth', map_location=torch.device('cpu'))
 
 model.load_state_dict(checkpoint['model_state_dict'])
 
@@ -111,17 +111,20 @@ def Parents(parents):
     global parent
     parent = parents
 
-ans = '저한테 말씀을 해주세요.'
+ans1 = '더 하실 말씀은 없을까요?'
+
+def filter(text):
+    # 정규 표현식을 사용하여 연속된 자음, 모음, 영문자, 특수문자를 제거합니다.
+    text = re.sub(r'([ㄱ-ㅎㅏ-ㅣa-zA-Z])\1+|[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9\s]', "", text)
+    updated_text = re.sub(r'([0-9])\1+', r'\1', text)
+    return updated_text
 
 def getAnswer(question):
-    # pattern = r"^[ㄱ-ㅎㅏ-ㅣ가-힣]*$"
-    # p = re.compile(pattern)
     with torch.no_grad():
         t = question.strip()
-        if len(t) < 1:
-            return ans
-        # elif not (p.match(question)):
-        #     return ans
+        t = filter(t)
+        if len(t) <= 1:
+            return ans1
         l = t[0]
         q = t[1:]
         a = ""
