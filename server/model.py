@@ -122,8 +122,8 @@ def getAnswer(question):
         t = question.strip()
         if len(t) < 1:
             return ans
-        elif not (p.match(question)):
-            return ans
+        # elif not (p.match(question)):
+        #     return ans
         l = t[0]
         q = t[1:]
         a = ""
