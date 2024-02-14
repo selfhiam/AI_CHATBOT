@@ -24,7 +24,7 @@ koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             pad_token=PAD, mask_token=MASK)
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 # 저장된 모델 상태를 불러오기
-checkpoint = torch.load('C:\Users\엄지민\Desktop\chatbot\server\chatjjock.pth', map_location=torch.device('cpu'))
+checkpoint = torch.load('C:/Users/엄지민/Desktop/project2/server/chatjjock.pth', map_location=torch.device('cpu'))
 
 model.load_state_dict(checkpoint['model_state_dict'])
 
@@ -48,10 +48,12 @@ class ChatbotDataset(Dataset):
         l = str(turn["1"])
 
         q = turn["Q"]  # 질문을 가져온다.
-        q = re.sub(r"([?.!,])", r" ", q)  # 구둣점들을 제거한다.
+        q = re.sub(r"([?.!,~])", r" ", q)  # 구둣점들을 제거한다.
+        q = re.sub(r'([ㄱ-ㅎㅏ-ㅣ])\1+', r'\1', q) # 자음이나 모음만 연속되는 것 한개만 남기고 삭제
 
         a = turn["A"]  # 답변을 가져온다.
         a = re.sub(r"([?.!,])", r" ", a)  # 구둣점들을 제거한다.
+        a = re.sub(r'([ㄱ-ㅎㅏ-ㅣ])\1+', r'\1', a) # 자음이나 모음만 연속되는 것 한개만 남기고 삭제
 
         l_toked = self.tokenizer.tokenize(self.l_token + l + self.sent_token)
         l_len = len(l_toked)
@@ -111,20 +113,17 @@ def Parents(parents):
     global parent
     parent = parents
 
-ans1 = '더 하실 말씀은 없을까요?'
-
-def filter(text):
-    # 정규 표현식을 사용하여 연속된 자음, 모음, 영문자, 특수문자를 제거합니다.
-    text = re.sub(r'([ㄱ-ㅎㅏ-ㅣa-zA-Z])\1+|[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9\s]', "", text)
-    updated_text = re.sub(r'([0-9])\1+', r'\1', text)
-    return updated_text
+ans = '저한테 말씀을 해주세요.'
 
 def getAnswer(question):
+    pattern = r"^[ㄱ-ㅎㅏ-ㅣ가-힣]*$"
+    p = re.compile(pattern)
     with torch.no_grad():
         t = question.strip()
-        t = filter(t)
-        if len(t) <= 1:
-            return ans1
+        if len(t) < 1:
+            return ans
+        elif not (p.match(question)):
+            return ans
         l = t[0]
         q = t[1:]
         a = ""
@@ -137,17 +136,19 @@ def getAnswer(question):
                 break
             a += gen.replace("▁", " ")
         a = a.strip()
-        if l == "9":
+        if parent == 1:
+            a = re.sub(r'엄빠', '엄마', a)
+        elif parent == 2:
+            a = re.sub(r'엄빠', '아빠', a)
+        if l == "9" or l == "5":
           count = a.split()
           if len(count) == 1:
             a += '....'
           a = re.sub(r"\s{2,}", "....", a)
-        if l == "4" or l == "8":
+        if l == "4" or l == "8" or l == '3':
           count = a.split()
           if len(count) == 1:
             a += '!'
           a = re.sub(r"\s{2,}", "!", a)
+        a = re.sub(r'([ㄱ-ㅎㅏ-ㅣ])', r'\1\1', a)
         return a
-          
-
-        

@@ -8,6 +8,17 @@ let changes = document.querySelectorAll('.name');
 changes[0].innerText = name
 changes[1].innerText = name
 
+fetch('http://127.0.0.1:8000/naming.html', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then((res) => res.json())
+.then((data) => {
+    console.log(data)
+})
+
 function select() {
     popup.style.display = 'block';
 }
@@ -33,7 +44,7 @@ function enter() {
             'parents': selected.value
         })
     })
-    .then(() =>{
-        window.location.href = "./chatting.html";
-    })
+        .then(() => {
+            window.location.href = "./chatting.html";
+        })
 }

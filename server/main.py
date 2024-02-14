@@ -65,6 +65,12 @@ async def getFromDB(request: Request):
 	list = questions.mongoDB()
 	return list
 
+@app.post('/naming.html', response_class=JSONResponse)
+async def conversation(request: Request):
+	conv = questions.getconv()
+	# conv = json.dumps(conv)
+	return conv
+
 @app.post('/birth.html', response_class=JSONResponse)
 async def getParents(request: Request):
     data = await request.json()  # JSON 형식의 데이터 추출
