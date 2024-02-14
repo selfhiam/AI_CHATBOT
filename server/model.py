@@ -24,7 +24,7 @@ koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             pad_token=PAD, mask_token=MASK)
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 # 저장된 모델 상태를 불러오기
-checkpoint = torch.load('C:\jimin\chatjjock\server\chatjjock.pth', map_location=torch.device('cpu'))
+checkpoint = torch.load('./chatjjock.pth', map_location=torch.device('cpu'))
 
 model.load_state_dict(checkpoint['model_state_dict'])
 
