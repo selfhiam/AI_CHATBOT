@@ -1,4 +1,4 @@
-const cname = localStorage.getItem('name');
+let cname = localStorage.getItem('name');
 let changes = document.querySelector('.name');
 changes.innerText = cname;
 
