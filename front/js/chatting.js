@@ -78,7 +78,10 @@ async function submit() {
         btn.classList.remove('yellow');
         window.scrollTo(0, document.body.scrollHeight);
 
-        choose = choosing(emoList)
+        choose = choosing(emoList);
+        if (cname[cname.length - 1] == '이') {
+            cname = cname.slice(0, -1);
+        }
         const regex = new RegExp(`${cname}`, 'g');
         console.log(regex); // /JS/g
         context = context.replace(regex, "챗쪽")

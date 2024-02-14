@@ -24,7 +24,7 @@ koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             pad_token=PAD, mask_token=MASK)
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 # 저장된 모델 상태를 불러오기
-checkpoint = torch.load('C:/Users/엄지민/Desktop/project2/server/chatjjock.pth', map_location=torch.device('cpu'))
+checkpoint = torch.load('C:\jimin\chatjjock\server\chatjjock.pth', map_location=torch.device('cpu'))
 
 model.load_state_dict(checkpoint['model_state_dict'])
 
@@ -120,12 +120,16 @@ def getAnswer(question):
     p = re.compile(pattern)
     with torch.no_grad():
         t = question.strip()
-        if len(t) < 1:
-            return ans
+        
         # elif not (p.match(question)):
         #     return ans
         l = t[0]
         q = t[1:]
+        q = re.sub(r"([?.!,~])", r" ", q)  # 구둣점들을 제거한다.
+        q = re.sub(r'([ㄱ-ㅎㅏ-ㅣ])\1+', r'\1', q) # 자음이나 모음만 연속되는 것 한개만 남기고 삭제
+        q = q.strip()
+        if len(q) < 1:
+            return ans
         a = ""
         while 1:
             input_ids = torch.LongTensor(koGPT2_TOKENIZER.encode(L_TKN + l + SENT + Q_TKN + q + SENT + 'sent' + A_TKN + a)).unsqueeze(dim=0)
@@ -137,9 +141,9 @@ def getAnswer(question):
             a += gen.replace("▁", " ")
         a = a.strip()
         if parent == 1:
-            a = re.sub(r'엄빠', '엄마', a)
+            a = a.replace('엄빠', '엄마')
         elif parent == 2:
-            a = re.sub(r'엄빠', '아빠', a)
+            a = a.replace('엄빠', '아빠')
         if l == "9" or l == "5":
           count = a.split()
           if len(count) == 1:
@@ -152,3 +156,4 @@ def getAnswer(question):
           a = re.sub(r"\s{2,}", "!", a)
         a = re.sub(r'([ㄱ-ㅎㅏ-ㅣ])', r'\1\1', a)
         return a
+    

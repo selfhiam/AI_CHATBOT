@@ -3,10 +3,8 @@ const randomNum = Math.floor(Math.random() * 3 + 1);
 const char = document.querySelector(".char");
 char.innerHTML = `<img src="./logo/${randomNum}.png" alt="character">`
 localStorage.setItem('char', randomNum);
-const name = localStorage.getItem('name');
-let changes = document.querySelectorAll('.name');
-changes[0].innerText = name
-changes[1].innerText = name
+const cname = localStorage.getItem('name');
+let subment = document.querySelector(".subment");
 
 fetch('http://127.0.0.1:8000/naming.html', {
     method: 'POST',
@@ -16,8 +14,22 @@ fetch('http://127.0.0.1:8000/naming.html', {
 })
 .then((res) => res.json())
 .then((data) => {
-    console.log(data)
+    // 이미 JavaScript 객체이므로 추가적인 JSON 파싱은 필요하지 않음
+    let parsed = data[0];
+    console.log(parsed)
+    parsed = JSON.parse(parsed);
+    parsed = parsed["C1"]
+    parsed = parsed.replace("챗쪽", "<span class='cname'></span>")
+    subment.innerHTML = parsed
+    let changes = document.querySelector('.cname');
+    changes.innerText = cname
 })
+
+
+let changes = document.querySelector('.name');
+console.log(changes)
+changes.innerText = cname
+
 
 function select() {
     popup.style.display = 'block';
