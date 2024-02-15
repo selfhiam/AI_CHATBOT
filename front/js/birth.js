@@ -6,7 +6,7 @@ localStorage.setItem('char', randomNum);
 const cname = localStorage.getItem('name');
 let subment = document.querySelector(".subment");
 
-fetch('http://ec2-13-209-139-239.ap-northeast-2.compute.amazonaws.com:3000/mytest.html', {
+fetch('http://13.209.139.239:8000/mytest.html', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ function enter() {
     const parents = document.getElementsByName('parents')
     const selected = Array.from(parents).find(radio => radio.checked);
     console.log(selected.value)
-    fetch('http://ec2-13-209-139-239.ap-northeast-2.compute.amazonaws.com:3000/mytest.html', {
+    fetch('http://13.209.139.239:8000/mytest.html', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
