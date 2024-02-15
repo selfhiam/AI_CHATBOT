@@ -98,7 +98,7 @@ async function submit() {
 
 function model(value) {
     return new Promise(resolve => {
-        fetch('http://127.0.0.1:8000/chatting.html', {
+        fetch('http://ec2-13-209-139-239.ap-northeast-2.compute.amazonaws.com:3000/chatting.html', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
