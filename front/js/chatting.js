@@ -98,7 +98,7 @@ async function submit() {
 
 function model(value) {
     return new Promise(resolve => {
-        fetch('http://127.0.0.1:8000//chatting.html', {
+        fetch('http://127.0.0.1:8000/chatting.html', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
