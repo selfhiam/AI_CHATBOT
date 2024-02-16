@@ -47,7 +47,7 @@ function enter() {
     const parents = document.getElementsByName('parents')
     const selected = Array.from(parents).find(radio => radio.checked);
     console.log(selected.value)
-    fetch('http://127.0.0.1:8000//mytest.html', {
+    fetch('http://127.0.0.1:8000/mytest.html', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
