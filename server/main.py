@@ -11,7 +11,7 @@ import model
 app = FastAPI()
 
 origins = [
-    "https://web-chatjjock-front-17xco2nlsk5kqla.sel5.cloudtype.app/"
+    "http://127.0.0.1:8000"
 ]
 
 app.add_middleware(
