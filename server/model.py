@@ -154,6 +154,6 @@ def getAnswer(question):
           if len(count) == 1:
             a += '!'
           a = re.sub(r"\s{2,}", "!", a)
-        a = re.sub(r'([ㄱ-ㅎㅏ-ㅣ])', r'\1\1', a)
+        a = re.sub(r'([ㄱ-ㅎㅏ-ㅣᄒ])', r'\1\1', a)
         return a
     
