@@ -140,9 +140,9 @@ def getAnswer(question):
                 break
             a += gen.replace("▁", " ")
         a = a.strip()
-        if parent == 1:
+        if parent == '1':
             a = a.replace('엄빠', '엄마')
-        elif parent == 2:
+        elif parent == '2':
             a = a.replace('엄빠', '아빠')
         if l == "9" or l == "5":
           count = a.split()
@@ -154,6 +154,6 @@ def getAnswer(question):
           if len(count) == 1:
             a += '!'
           a = re.sub(r"\s{2,}", "!", a)
-        a = re.sub(r'([ㄱ-ㅎㅏ-ㅣ])', r'\1\1', a)
+        a = re.sub(r'([ㄱ-ㅎㅏ-ㅣᄒ])', r'\1\1', a)
         return a
     
